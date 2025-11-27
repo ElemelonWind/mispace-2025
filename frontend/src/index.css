@@ -1,0 +1,21 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+.mapPanel {
+  flex: 3;
+}
+
+.controlPanel {
+  flex: 1;
+  padding: 20px;
+  background: #f8f8f8;
+  border-left: 2px solid #ddd;
+  overflow-y: auto;
+}
