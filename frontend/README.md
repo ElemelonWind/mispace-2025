@@ -1,24 +1,11 @@
-#### Copy your 4 forecast PNGs from the Colab notebook into:
 
-```
-public/
-  forecast_day_0.png
-  forecast_day_1.png
-  forecast_day_2.png
-  forecast_day_3.png
-```
+  # Ice Forecast UI Design
 
-#### Add shipping lanes GeoJSON:
+  This is a code bundle for Ice Forecast UI Design. The original project is available at https://www.figma.com/design/9COJ32utdPQzmWAAjy4wDk/Ice-Forecast-UI-Design.
 
-Put into:
+  ## Running the code
 
-```
-public/shipping_routes.geojson
-```
+  Run `npm i` to install the dependencies.
 
-#### Run the app:
-
-```
-npm install
-npm start
-```
+  Run `npm run dev` to start the development server.
+  
