@@ -57,5 +57,5 @@
       port: 3000,
       open: true,
     },
-    base: '/mispace-2025/',
+    base: '/mispace-2025/docs/',
   });
