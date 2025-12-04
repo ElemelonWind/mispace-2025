@@ -1,9 +1,13 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { IceMapViewer } from './components/IceMapViewer';
 import { DaySlider } from './components/DaySlider';
 import { OverlayControls } from './components/OverlayControls';
 import { NarrativePanel } from './components/NarrativePanel';
-import { generateMockGridData, generateMockAssetPositions } from './utils';
+import { flipGridDataVertically, generateMockGridData, generateAssetPositions } from './utils';
+import ice24 from './files/ice_concentration_24h_flipped.json';
+import ice48 from './files/ice_concentration_48h_flipped.json';
+import ice72 from './files/ice_concentration_72h_flipped.json';
+import ice96 from './files/ice_concentration_96h_flipped.json';
 
 export default function App() {
   const [selectedDay, setSelectedDay] = useState(0);
@@ -12,8 +16,15 @@ export default function App() {
     harborTugs: true,
     buoyTenders: true,
   });
-  const gridData = generateMockGridData(selectedDay);
-  const assetPositions = generateMockAssetPositions(selectedDay);
+
+  const [gridData, setGridData] = useState<Record<number, number[][]>>({
+    0: generateMockGridData(0),
+    1: generateMockGridData(1),
+    2: generateMockGridData(2),
+    3: generateMockGridData(3),
+  });
+
+  const assetPositions = generateAssetPositions(selectedDay);
 
   const toggleOverlay = (overlay: keyof typeof overlays) => {
     setOverlays(prev => ({
@@ -21,6 +32,17 @@ export default function App() {
       [overlay]: !prev[overlay],
     }));
   };
+
+  // Load the files once on mount
+  useEffect(() => {
+    const parsed = {
+      0: flipGridDataVertically(ice24),
+      1: flipGridDataVertically(ice48),
+      2: flipGridDataVertically(ice72),
+      3: flipGridDataVertically(ice96),
+    };
+    setGridData(parsed);
+  }, []);
 
   return (
     <div className="flex h-screen bg-slate-900">
@@ -41,7 +63,7 @@ export default function App() {
           <IceMapViewer 
             day={selectedDay} 
             overlays={overlays}
-            gridData={gridData}
+            gridData={gridData[selectedDay]}
             assetPositions={assetPositions}
           />
         </div>

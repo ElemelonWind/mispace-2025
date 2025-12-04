@@ -107,31 +107,13 @@ function drawGridData(ctx, cssSize, gridData, offsetX, offsetY) {
 
       let r = 30, g = 41, b = 59, a = 255; // Default: dark slate (land)
 
-      if (value === 100) {
-        // Land
-        r = 30; g = 41; b = 59;
-      } else if (value < 0) {
-        // Ice coverage (negative values)
-        const iceCoverage = Math.abs(value); // 0 to 1
-        // White ice with intensity based on coverage
-        const intensity = 150 + (iceCoverage * 105); // 150-255
-        r = intensity;
-        g = intensity;
-        b = 255; // Keep blue tint for ice
-        a = Math.floor(150 + (iceCoverage * 105)); // More coverage = more opaque
-      } else {
-        // Water temperature (positive values)
-        // Map temperature to color: cold (blue) to warm (cyan/green)
-        const temp = Math.min(value, 10); // Cap at 10°C for color scale
-        const normalized = temp / 10; // 0 to 1
-        
-        // Cold water: dark blue
-        // Warmer water: lighter blue/cyan
-        r = Math.floor(15 + (normalized * 50)); // 15-65
-        g = Math.floor(30 + (normalized * 100)); // 30-130
-        b = Math.floor(100 + (normalized * 100)); // 100-200
-        a = 255;
-      }
+      // Ice coverage (negative values)
+      const iceCoverage = Math.abs(value); // 0 to 1
+      // White ice with intensity based on coverage
+      r = Math.floor(15 + (iceCoverage * 50)); // 15-65
+      g = Math.floor(30 + (iceCoverage * 100)); // 30-130
+      b = Math.floor(100 + (iceCoverage * 100)); // 100-200
+      a = 255;
 
       data[pixelIndex]     = r;
       data[pixelIndex + 1] = g;
@@ -281,32 +263,15 @@ function drawLegend(ctx: CanvasRenderingContext2D, width: number, height: number
 
   let yOffset = 50;
   
-  // Ice coverage gradient
-  ctx.fillStyle = '#f1f5f9';
-  ctx.font = '11px sans-serif';
-  ctx.fillText('Ice Coverage', legendX + 10, legendY + yOffset);
-  yOffset += 20;
 
   // Draw ice gradient
   const gradientWidth = 190;
   const gradientHeight = 12;
-  for (let i = 0; i < gradientWidth; i++) {
-    const coverage = i / gradientWidth;
-    const intensity = 150 + (coverage * 105);
-    ctx.fillStyle = `rgba(${intensity}, ${intensity}, 255, ${0.6 + coverage * 0.4})`;
-    ctx.fillRect(legendX + 10 + i, legendY + yOffset - 8, 1, gradientHeight);
-  }
-  
-  ctx.fillStyle = '#cbd5e1';
-  ctx.font = '9px sans-serif';
-  ctx.fillText('0%', legendX + 10, legendY + yOffset + 10);
-  ctx.fillText('100%', legendX + 175, legendY + yOffset + 10);
-  yOffset += 30;
 
   // Water temperature gradient
   ctx.fillStyle = '#f1f5f9';
   ctx.font = '11px sans-serif';
-  ctx.fillText('Water Temperature', legendX + 10, legendY + yOffset);
+  ctx.fillText('Ice Concentration', legendX + 10, legendY + yOffset);
   yOffset += 20;
 
   // Draw temperature gradient
@@ -321,8 +286,8 @@ function drawLegend(ctx: CanvasRenderingContext2D, width: number, height: number
   
   ctx.fillStyle = '#cbd5e1';
   ctx.font = '9px sans-serif';
-  ctx.fillText('0°C', legendX + 10, legendY + yOffset + 10);
-  ctx.fillText('10°C', legendX + 170, legendY + yOffset + 10);
+  ctx.fillText('0%', legendX + 10, legendY + yOffset + 10);
+  ctx.fillText('100%', legendX + 170, legendY + yOffset + 10);
   yOffset += 35;
 
   // Asset icons

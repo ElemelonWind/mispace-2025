@@ -107,11 +107,11 @@ export interface AssetPositions {
     return Math.pow((nx - cx) / rx, 2) + Math.pow((ny - cy) / ry, 2) < 1;
   }
   
-  export function generateMockAssetPositions(day: number): AssetPositions {
+  export function generateAssetPositions(day: number): AssetPositions {
     // Positions in 1024x1024 grid coordinates
     // USCGC Mackinaw moves to areas of heavy ice over time
     const mackinawPositions = [
-      { x: 460, y: 512, label: 'MACKINAW' }, // Day 0: Near Sault Ste. Marie (Huron)
+      { x: 456, y: 420, label: 'MACKINAW' }, // Day 0: Near Sault Ste. Marie (Huron)
       { x: 380, y: 450, label: 'MACKINAW' }, // Day 1: Moving toward Lake Huron center
       { x: 280, y: 340, label: 'MACKINAW' }, // Day 2: Lake Superior entrance
       { x: 220, y: 300, label: 'MACKINAW' }, // Day 3: Western Lake Superior
@@ -119,18 +119,18 @@ export interface AssetPositions {
   
     // 6 harbor tugs at major ports (relatively fixed positions)
     const harborTugs = [
-      { x: 180, y: 280 },  // Duluth (Lake Superior)
-      { x: 220, y: 750 },  // Chicago (Lake Michigan)
-      { x: 420, y: 480 },  // Sault Ste. Marie (between Superior and Huron)
-      { x: 580, y: 680 },  // Detroit (Lake Erie)
-      { x: 640, y: 700 },  // Cleveland (Lake Erie)
+      { x: 173, y: 268 },  // Duluth (Lake Superior)
+      { x: 410, y: 473 },  // Chicago (Lake Michigan)
+      { x: 630, y: 567 },  // Sault Ste. Marie (between Superior and Huron)
+      { x: 677, y: 710 },  // Detroit (Lake Erie)
+      { x: 320, y: 757 },  // Cleveland (Lake Erie)
       { x: 820, y: 660 },  // Buffalo (Lake Ontario)
     ];
   
     // 2 buoy tenders - positioned in thinner ice areas
     const buoyTenders = [
-      { x: 500, y: 520, label: 'BT-1' }, // Lake Huron
-      { x: 800, y: 665, label: 'BT-2' }, // Lake Ontario
+      { x: 496, y: 320, label: 'BT-1' }, // Lake Huron
+      { x: 827, y: 655, label: 'BT-2' }, // Lake Ontario
     ];
   
     return {
@@ -139,4 +139,12 @@ export interface AssetPositions {
       buoyTenders,
     };
   }
-  
+
+  export function flipGridDataVertically(gridData: number[][]): number[][] {
+    const flippedData: number[][] = [];
+    const numRows = gridData.length;
+    for (let y = numRows - 1; y >= 0; y--) {
+      flippedData.push([...gridData[y]]);
+    }
+    return flippedData;
+  }

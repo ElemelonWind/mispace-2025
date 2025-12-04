@@ -24,7 +24,7 @@ export function NarrativePanel({ day }: NarrativePanelProps) {
       day: 1,
       date: new Date(Date.now() + 86400000).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
       confidence: 87,
-      summary: 'Ice coverage expanding in Lake Superior with favorable freeze conditions. Fast ice extent increasing by 15-20 nautical miles along northwest shores.',
+      summary: 'Ice coverage expanding in Lake Michigan with favorable freeze conditions. Fast ice extent increasing by 15-20 nautical miles along northwest shores.',
       iceConditions: 'Fast ice expansion continues. Pack ice concentration increasing to 45-50% in Lake Superior, stable at 25-30% in Lake Erie.',
       shippingImpact: 'Increased delays expected in Lake Superior (4-6 hours). St. Marys River traffic requires icebreaker escort.',
       recommendations: [
@@ -66,7 +66,7 @@ export function NarrativePanel({ day }: NarrativePanelProps) {
         'Issue marine safety bulletins for hazardous ice conditions',
         'Consider restricting non-essential commercial traffic',
       ],
-      risks: 'Critical',
+      risks: 'High',
     },
   ];
 
@@ -158,26 +158,12 @@ export function NarrativePanel({ day }: NarrativePanelProps) {
           </span>
         </div>
 
-        {/* USCG Recommendations */}
-        <div>
-          <h3 className="text-white mb-3">USCG Recommended Actions</h3>
-          <ul className="space-y-2">
-            {forecast.recommendations.map((rec, index) => (
-              <li key={index} className="flex gap-2 text-slate-300 text-sm">
-                <span className="text-blue-400 mt-1">•</span>
-                <span>{rec}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-
         {/* Data Sources */}
         <div className="pt-4 border-t border-slate-700">
           <h4 className="text-slate-400 text-sm mb-2">Data Sources</h4>
           <ul className="space-y-1 text-slate-500 text-xs">
             <li>• USNIC Satellite Ice Charts (3-week composite)</li>
             <li>• NOAA Surface Temperature Forecasts</li>
-            <li>• NDBC Wind & Wave Data</li>
             <li>• Great Lakes Navigation System Routes</li>
           </ul>
         </div>
